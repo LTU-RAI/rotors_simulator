@@ -24,6 +24,7 @@
   <!-- Instantiate hummingbird "mechanics" -->
   <xacro:include filename="$(find rotors_description)/urdf/hummingbird.xacro" />
 
+  <xacro:include filename="$(find rotors_description)/urdf/sbl.xacro" />
   <!-- Instantiate a controller. -->
   <xacro:controller_plugin_macro namespace="${namespace}" imu_sub_topic="imu" />
 
@@ -48,5 +49,13 @@
       wait_to_record_bag="$(arg wait_to_record_bag)" />
   </xacro:if>
 
+
+  <!-- Add an 0S0-128 lidar -->
+  <xacro:include filename="$(find lidar_description)/urdf/OS0-128.urdf.xacro"/>
+  <xacro:OS0-128 parent="${namespace}/base_link" name="os_sensor" topic="ouster/points" hz="10" lasers="32" samples="440" collision_range="0.3" min_range="0.3" max_range="50.0">
+    <origin xyz="0.0125 0 0.165" rpy="0 0 0" />
+  </xacro:OS0-128>
+
+  
 </robot>
 
